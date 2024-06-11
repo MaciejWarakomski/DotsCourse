@@ -1,11 +1,10 @@
 {
-    "Show": true,
     "Dependencies": [],
     "Components": [
         {
             "$type": "Unity.Build.Classic.ClassicBuildProfile, Unity.Build.Classic",
             "$version": 1,
-            "Platform": "StandaloneWindows64",
+            "Platform": "win",
             "Configuration": 2
         },
         {

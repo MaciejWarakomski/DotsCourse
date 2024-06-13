@@ -13,6 +13,7 @@ namespace Core
         [SerializeField] private int gridSize;
         [SerializeField] private int spread;
         [SerializeField] private Vector2 speedRange = new Vector2(4, 7);
+        [SerializeField] private Vector2 lifetimeRange = new Vector2(10, 60);
 
         private BlobAssetStore _blob;
 
@@ -33,6 +34,8 @@ namespace Core
                     entityManager.SetComponentData(instance, new Destination { Value = position });
                     var speed = Random.Range(speedRange.x, speedRange.y);
                     entityManager.SetComponentData(instance, new MovementSpeed { Value = speed });
+                    var lifetime = Random.Range(lifetimeRange.x, lifetimeRange.y);
+                    entityManager.SetComponentData(instance, new Lifetime { Value = lifetime });
                 }
             }
         }

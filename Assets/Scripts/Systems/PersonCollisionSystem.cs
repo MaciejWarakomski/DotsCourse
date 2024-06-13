@@ -10,12 +10,10 @@ namespace Systems
 {
     public partial class PersonCollisionSystem : SystemBase
     {
-        private BuildPhysicsWorld _buildPhysicsWorld;
         private StepPhysicsWorld _stepPhysicsWorld;
         
         protected override void OnCreate()
         {
-            _buildPhysicsWorld = World.GetOrCreateSystem<BuildPhysicsWorld>();
             _stepPhysicsWorld = World.GetExistingSystem<StepPhysicsWorld>();
         }
 
@@ -54,7 +52,7 @@ namespace Systems
                 PersonGroup = GetComponentDataFromEntity<PersonTag>(true),
                 ColorGroup = GetComponentDataFromEntity<URPMaterialPropertyBaseColor>(),
                 Seed = System.DateTimeOffset.Now.Millisecond
-            }.Schedule(_stepPhysicsWorld.Simulation, ref _buildPhysicsWorld.PhysicsWorld, Dependency);
+            }.Schedule(_stepPhysicsWorld.Simulation, Dependency);
         }
     }
 }

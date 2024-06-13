@@ -6,7 +6,7 @@ using Unity.Mathematics;
 namespace Systems
 {
     [UpdateInGroup(typeof(InitializationSystemGroup))]
-    public class RandomSystem : SystemBase
+    public partial class RandomSystem : SystemBase
     {
         public NativeArray<Random> RandomArray { get; private set; }
         

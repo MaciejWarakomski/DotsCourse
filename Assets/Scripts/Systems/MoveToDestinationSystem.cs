@@ -1,29 +1,32 @@
 using Components;
 using Unity.Entities;
-using Unity.Transforms;
 using Unity.Mathematics;
+using Unity.Transforms;
 
-public class MoveToDestinationSystem : SystemBase
+namespace Systems
 {
-    protected override void OnUpdate()
+    public class MoveToDestinationSystem : SystemBase
     {
-        var deltaTime = Time.DeltaTime;
-        
-        Entities.ForEach((ref Translation translation, ref Rotation rotation, 
-            in Destination destination, in MovementSpeed speed) =>
+        protected override void OnUpdate()
         {
-            if (math.all(destination.Value == translation.Value)) return;
-            var toDestination = destination.Value - translation.Value;
-            rotation.Value = quaternion.LookRotation(toDestination, new float3(0, 1, 0));
-            var movement = math.normalize(toDestination) * speed.Value * deltaTime;
-            if (math.length(movement) >= math.length(toDestination))
+            var deltaTime = Time.DeltaTime;
+        
+            Entities.ForEach((ref Translation translation, ref Rotation rotation, 
+                in Destination destination, in MovementSpeed speed) =>
             {
-                translation.Value = destination.Value;
-            }
-            else
-            {
-                translation.Value += movement;
-            }
-        }).ScheduleParallel();
+                if (math.all(destination.Value == translation.Value)) return;
+                var toDestination = destination.Value - translation.Value;
+                rotation.Value = quaternion.LookRotation(toDestination, new float3(0, 1, 0));
+                var movement = math.normalize(toDestination) * speed.Value * deltaTime;
+                if (math.length(movement) >= math.length(toDestination))
+                {
+                    translation.Value = destination.Value;
+                }
+                else
+                {
+                    translation.Value += movement;
+                }
+            }).ScheduleParallel();
+        }
     }
 }
